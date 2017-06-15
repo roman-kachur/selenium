@@ -42,19 +42,27 @@ def test_sidemenu():
 
     # Walk through menu:
     menu = a_driver.find_elements_by_xpath('//*[@id="app-"]')
+
     for index in range(1, len(menu) + 1):
-        x_path = '//*[@id="box-apps-menu"]/li[' + str(index) + ']'
-        print(x_path)
-        a_driver.find_element_by_xpath(x_path).click()
-        time.sleep(2)
+        menu_item_x_path = '//*[@id="box-apps-menu"]/li[' + str(index) + ']'
+        WebDriverWait(a_driver, 3).until(ec.presence_of_element_located((By.XPATH, menu_item_x_path)))
+        print(menu_item_x_path)
+        a_driver.find_element_by_xpath(menu_item_x_path).click()
+        assert (WebDriverWait(a_driver, 3).until(
+            ec.presence_of_element_located((By.XPATH, '//*[@id="main"]/h1')))), "Element h1 not found"
+        #time.sleep(2)
+
         # Check for submenu:
-        sub_menu = a_driver.find_elements_by_xpath(x_path + '/ul/li')
+        sub_menu = a_driver.find_elements_by_xpath(menu_item_x_path + '/ul/li')
         if sub_menu:
             for jndex in range(1, len(sub_menu) + 1):
-                sub_x_path = x_path + '/ul/li[' + str(jndex) + ']'
-                print(sub_x_path)
-                a_driver.find_element_by_xpath(sub_x_path).click()
-                time.sleep(2)
+                sub_menu_item_x_path = menu_item_x_path + '/ul/li[' + str(jndex) + ']'
+                print(sub_menu_item_x_path)
+                WebDriverWait(a_driver, 3).until(ec.presence_of_element_located((By.XPATH, sub_menu_item_x_path)))
+                a_driver.find_element_by_xpath(sub_menu_item_x_path).click()
+                assert (WebDriverWait(a_driver, 3).until(
+                    ec.presence_of_element_located((By.XPATH, '//*[@id="main"]/h1')))), "Element h1 not found"
+                #time.sleep(2)
 
     # Logout:
     WebDriverWait(a_driver, 3).until(ec.presence_of_element_located((By.XPATH, '// *[ @ id = "shortcuts"] / a[5] / i')))
