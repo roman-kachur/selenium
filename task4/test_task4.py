@@ -19,28 +19,29 @@ def test_sidemenu():
     password = 'admin'
     a_driver.get(an_url)
     WebDriverWait(a_driver, 3).until(ec.title_is("My Store"))
-    time.sleep(3)
+    #time.sleep(1)
 
     # Enter username:
     WebDriverWait(a_driver, 3).until(
         ec.presence_of_element_located((By.XPATH, '//*[@id="box-login"]/form/div[1]/div[1]/div/input')))
     a_driver.find_element_by_xpath('//*[@id="box-login"]/form/div[1]/div[1]/div/input').send_keys(username)
-    time.sleep(1)
+    #time.sleep(1)
 
     # Enter password:
     WebDriverWait(a_driver, 3).until(
         ec.presence_of_element_located((By.XPATH, '//*[@id="box-login"]/form/div[1]/div[2]/div/input')))
     a_driver.find_element_by_xpath('//*[@id="box-login"]/form/div[1]/div[2]/div/input').send_keys(password)
-    time.sleep(1)
+    #time.sleep(1)
 
     # Login:
     WebDriverWait(a_driver, 3).until(
         ec.presence_of_element_located((By.XPATH, '//*[@id="box-login"]/form/div[2]/button')))
     a_driver.find_element_by_xpath('//*[@id="box-login"]/form/div[2]/button').click()
     WebDriverWait(a_driver, 3).until(ec.title_is("My Store"))
-    time.sleep(3)
+    #time.sleep(3)
 
     # Walk through menu:
+    WebDriverWait(a_driver, 3).until(ec.presence_of_element_located((By.XPATH, '//*[@id="app-"]')))
     menu = a_driver.find_elements_by_xpath('//*[@id="app-"]')
 
     for index in range(1, len(menu) + 1):
@@ -69,5 +70,3 @@ def test_sidemenu():
     a_driver.find_element_by_xpath('// *[ @ id = "shortcuts"] / a[5] / i').click()
     time.sleep(3)
     a_driver.quit()
-
-
