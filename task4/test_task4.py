@@ -59,6 +59,12 @@ def test_sidemenu():
             for jndex in range(1, len(sub_menu) + 1):
                 sub_menu_item_x_path = menu_item_x_path + '/ul/li[' + str(jndex) + ']'
                 print(sub_menu_item_x_path)
+
+                # Make a test on fallacy:
+                #if sub_menu_item_x_path == '//*[@id="box-apps-menu"]/li[8]/ul/li[5]':
+                #    assert (WebDriverWait(a_driver, 3).until(
+                #        ec.presence_of_element_located((By.XPATH, '//*[@id="main"]/abracadabda')))), "Element abracadabra not found"
+
                 WebDriverWait(a_driver, 3).until(ec.presence_of_element_located((By.XPATH, sub_menu_item_x_path)))
                 a_driver.find_element_by_xpath(sub_menu_item_x_path).click()
                 assert (WebDriverWait(a_driver, 3).until(
