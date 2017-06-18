@@ -5,15 +5,28 @@ from webdriver_manager.microsoft import IEDriverManager
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import time
 
 
-def test_product(an_url = 'http://localhost/litecart'):
+def test_product():
+    an_url = 'http://localhost/litecart'
 
-    # Select and Initialize a driver:
+    #  Check it in Chrome:
     a_driver = webdriver.Chrome(ChromeDriverManager().install())
-    #a_driver = webdriver.Ie(IEDriverManager().install())
+    check_it(a_driver, an_url)
 
+    # Check it in IE:
+    a_driver = webdriver.Ie(IEDriverManager().install())
+    check_it(a_driver, an_url)
+
+    # Check it in Firefox:
+    a_driver = webdriver.Firefox(GeckoDriverManager().install())
+    #a_driver = webdriver.Firefox()
+    check_it(a_driver, an_url)
+
+
+def check_it(a_driver, an_url):
     # Open url
     a_driver.get(an_url)
     WebDriverWait(a_driver, 3).until(ec.title_is("My Store | Online Store"))
@@ -81,9 +94,9 @@ def test_product(an_url = 'http://localhost/litecart'):
     # Print out values before comparision:
     print("First Items's attributes are: ", a_name, a_regvalue, a_regcolor, a_regstyle,
           a_campvalue, a_campcolor, a_campstyle)
-
     print("Clicked Item's attributes are: ", clicked_name, clicked_regvalue, clicked_regcolor, clicked_regstyle,
           clicked_campvalue, clicked_campcolor, clicked_campstyle)
+
 
     # Compare values:
     assert (a_name == clicked_name), "Product Name doesn't match"
