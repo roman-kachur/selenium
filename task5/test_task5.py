@@ -22,7 +22,7 @@ def test_product():
 
     # Check it in Firefox:
     a_driver = webdriver.Firefox(GeckoDriverManager().install())
-    #a_driver = webdriver.Firefox()
+    a_driver = webdriver.Firefox()
     check_it(a_driver, an_url)
 
 
@@ -67,7 +67,7 @@ def check_it(a_driver, an_url):
     # Click on selected item:
     first_product.click()
     clicked_product_xpath = '//*[@id="box-product"]'
-    WebDriverWait(a_driver, 3).until(ec.presence_of_element_located((By.XPATH, clicked_product_xpath)))
+    WebDriverWait(a_driver, 3).until(ec.visibility_of_element_located((By.XPATH, clicked_product_xpath)))
     #time.sleep(3)
 
     # Get ckicked item's properties:
