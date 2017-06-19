@@ -30,13 +30,13 @@ def check_it(a_driver, an_url):
     # Open url
     a_driver.get(an_url)
     WebDriverWait(a_driver, 3).until(ec.title_is("My Store | Online Store"))
-    time.sleep(1)
+    #time.sleep(1)
 
     # Select Campaign Product tab:
     camp_prod_tab_xpath = '//*[@id="content"]/ul/li[1]'
     WebDriverWait(a_driver, 3).until(ec.presence_of_element_located((By.XPATH, camp_prod_tab_xpath)))
     capmaign_product = a_driver.find_element_by_xpath(camp_prod_tab_xpath)
-    time.sleep(3)
+    #time.sleep(3)
 
     # Select first product:
     first_product_xpath = '//*[@id="box-campaign-products"]/div/div/div/a[1]'
