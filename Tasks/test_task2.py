@@ -36,7 +36,7 @@ def test_litecart(an_url = "http://localhost/litecart/admin/"):
 
     # Wait for a header:
     WebDriverWait(a_driver, 3).until(ec.title_is("My Store"))
-    #time.sleep(3)
+    time.sleep(3)
 
     # Logout:
     logout_css_locator = 'i[class="fa fa-sign-out fa-lg"]'
