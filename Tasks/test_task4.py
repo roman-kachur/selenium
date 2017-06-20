@@ -14,10 +14,10 @@ def test_sidemenu():
     an_url = "http://localhost/litecart/admin/"
 
     # Initialize a driver:
-    #a_driver = webdriver.Ie(IEDriverManager().install())
-    a_driver = webdriver.Chrome(ChromeDriverManager().install())
+    a_driver = webdriver.Ie(IEDriverManager().install())
+    #a_driver = webdriver.Chrome(ChromeDriverManager().install())
     #a_driver = webdriver.Firefox()
-    a_driver.implicitly_wait(3)
+    a_driver.implicitly_wait(5)
 
     a_driver.get(an_url)
     # Wait for a header:
