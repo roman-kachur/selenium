@@ -62,7 +62,7 @@ def test_add_new_item():
 
     # Add new item:
     # image:
-    local_image_path = 'c:/Users/boxter/PycharmProjects/selenium-hub/Tasks/0009.jpg'
+    local_image_path = 'c:\\Users\\boxter\\PycharmProjects\\selenium-hub\\Tasks\\0009.jpg'
     image_field_css = 'input[name="new_images[]"]'
     image_field = a_driver.find_element_by_css_selector(image_field_css)
     image_field.send_keys(local_image_path)
@@ -91,7 +91,7 @@ def test_add_new_item():
     quantity_field.send_keys(quantity)
 
     # Weight:
-    weight = '1,2'
+    weight = '1.2'
     weight_field_css = 'input[class="form-control"][name="weight"]'
     weight_field = a_driver.find_element_by_css_selector(weight_field_css)
     weight_field.clear()
