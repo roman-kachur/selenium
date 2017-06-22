@@ -71,6 +71,7 @@ def check_it(a_driver, an_url):
     a_campvalue = first_product_campprice.get_attribute('textContent')
     a_campcolor = first_product_campprice.value_of_css_property("color")
     a_campstyle = first_product_campprice.value_of_css_property("font-weight")
+    print('Item values on main page: ', a_name, a_regvalue, a_regcolor, a_regstyle, a_campvalue, a_campcolor, a_campstyle)
 
     # Finally, click on the first product:
     first_product.click()
@@ -99,6 +100,8 @@ def check_it(a_driver, an_url):
     clicked_campvalue = clicked_product_campprice.get_attribute('textContent')
     clicked_campcolor = clicked_product_campprice.value_of_css_property("color")
     clicked_campstyle = clicked_product_campprice.value_of_css_property("font-weight")
+    print('Clicked item values: ', clicked_name, clicked_regvalue, clicked_regcolor,
+          clicked_regstyle, clicked_campvalue, clicked_campcolor, clicked_campstyle)
 
     # Compare values:
     assert (a_name == clicked_name), "Product Name doesn't match"
