@@ -13,8 +13,8 @@ def test_litecart(an_url = "http://localhost/litecart/admin/"):
 
     # Initialize a driver:
     #a_driver = webdriver.Ie(IEDriverManager().install())
-    #a_driver = webdriver.Chrome(ChromeDriverManager().install())
-    a_driver = webdriver.Firefox()
+    a_driver = webdriver.Chrome(ChromeDriverManager().install())
+    #a_driver = webdriver.Firefox()
     a_driver.implicitly_wait(3)
 
 
