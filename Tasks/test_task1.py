@@ -1,9 +1,9 @@
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.microsoft import IEDriverManager
-import time
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
+import time
 
 
 def test_google(an_url = "https://google.com/"):
@@ -13,8 +13,9 @@ def test_google(an_url = "https://google.com/"):
     #a_driver = webdriver.Chrome(ChromeDriverManager().install(),
     #                           desired_capabilities={"chromeOptions": {"args": ["--start-fullscreen"]}})
     #a_driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options = options)
-    a_driver = webdriver.Chrome(ChromeDriverManager().install())
+    #a_driver = webdriver.Chrome(ChromeDriverManager().install())
     #a_driver = webdriver.Ie(IEDriverManager().install())
+    a_driver = webdriver.Firefox()
 
     a_driver.get(an_url)
     a_driver.find_element_by_name('q').send_keys('webdriver')
@@ -27,5 +28,3 @@ def test_google(an_url = "https://google.com/"):
 
     time.sleep(3)
     a_driver.quit()
-
-#test_google()
