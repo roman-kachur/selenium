@@ -11,8 +11,8 @@ def test_sidemenu():
 
     # Initialize a driver:
     #a_driver = webdriver.Ie(IEDriverManager().install())
-    a_driver = webdriver.Chrome(ChromeDriverManager().install())
-    #a_driver = webdriver.Firefox()
+    #a_driver = webdriver.Chrome(ChromeDriverManager().install())
+    a_driver = webdriver.Firefox()
 
     # Walk through menus in separate function:
     menu_walk(a_driver)
@@ -27,7 +27,7 @@ def menu_walk(a_driver):
     a_driver.implicitly_wait(1)
     username = 'admin'
     password = 'admin'
-    driver_wait = 1                     # 1 second for explicit waits.
+    driver_wait = 2                     # 2 second for explicit waits.
     page_header_css = 'h1'              # Expected condition for assertions.
     an_url = "http://localhost/litecart/admin/"
 
