@@ -15,8 +15,8 @@ def test_cart():
 
     # Initialize a driver:
     #a_driver = webdriver.Ie(IEDriverManager().install())
-    #a_driver = webdriver.Firefox()
-    a_driver = webdriver.Chrome(ChromeDriverManager().install())
+    a_driver = webdriver.Firefox()
+    #a_driver = webdriver.Chrome(ChromeDriverManager().install())
     a_driver.implicitly_wait(2)
     wait = WebDriverWait(a_driver, 4)
 
@@ -45,17 +45,20 @@ def test_cart():
     size = a_driver.find_element_by_css_selector(size_css)
     size.click()
 
+    # Check current items in the cart:
+    cart_items_css = 'span[class="quantity"]'
+    cart_items = a_driver.find_element_by_css_selector(cart_items_css)
+
+    # Button 'Add to cart':
+    add_button_css = 'button[name="add_cart_product"]'
+    add_button = a_driver.find_element_by_css_selector(add_button_css)
 
     # Add it to the cart three times:
     for i in range(3):
         # Check current items in the cart:
-        cart_items_css = 'span[class="quantity"]'
-        cart_items = a_driver.find_element_by_css_selector(cart_items_css)
         items = cart_items.text
 
-        # Click 'Add to cart':
-        add_button_css = 'button[name="add_cart_product"]'
-        add_button = a_driver.find_element_by_css_selector(add_button_css)
+        # Click Add button:
         add_button.click()
 
         # Wait until cart's items is updated:
@@ -79,14 +82,13 @@ def test_cart():
 
     # find all buttons 'Remove button':
     remove_buttons_css = 'button[class="btn btn-danger"]'
-    #remove_buttons = a_driver.find_elements_by_css_selector(remove_buttons_css)
+    remove_buttons = a_driver.find_elements_by_css_selector(remove_buttons_css)
     #remove_buttons[0].click()
 
-    while a_driver.find_elements_by_css_selector(remove_buttons_css) :
-        remove_buttons = a_driver.find_elements_by_css_selector(remove_buttons_css)
+    while remove_buttons :
         remove_buttons[0].click()
         wait.until(ec.staleness_of(items))
-
+        remove_buttons = a_driver.find_elements_by_css_selector(remove_buttons_css)
 
     # Close the driver:
     time.sleep(1)
