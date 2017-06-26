@@ -14,7 +14,7 @@ def switch_to_new_window(a_driver, old_windows):
     return new_window[0]
 
 
-def test_add_new_country():
+def test_external_links():
 
     username = 'admin'
     password = 'admin'
@@ -48,7 +48,7 @@ def test_add_new_country():
     time.sleep(2)
 
     # ===============================
-    # Enter Counties menu:
+    # Enter Countries menu:
     countries_menu_css = 'li[id="app-"]:nth-child(3)'
     WebDriverWait(a_driver, 6).until(ec.element_to_be_clickable((By.CSS_SELECTOR, countries_menu_css)))
     countries_menu = a_driver.find_element_by_css_selector(countries_menu_css)
@@ -78,12 +78,10 @@ def test_add_new_country():
             (ec.visibility_of_element_located((By.CSS_SELECTOR, 'h1')))), "Page not found"
         #a_driver.close()
         a_driver.switch_to.window(first_window)
-        time.sleep(1)
 
     # Logout:
     logout_css_locator = 'i[class="fa fa-sign-out fa-lg"]'
     a_driver.find_element_by_css_selector(logout_css_locator).click()
-    time.sleep(1)
 
     # Close the driver:
     time.sleep(3)
