@@ -72,7 +72,7 @@ def menu_walk(a_driver):
         sub_menu_css = 'li[id^="doc-"]'
         try:
             sub_menu_presence = WebDriverWait(a_driver, driver_wait).until(
-                ec.presence_of_element_located((By.CSS_SELECTOR, sub_menu_css)))
+                ec.presence_of_all_elements_located((By.CSS_SELECTOR, sub_menu_css)))
         except :
             sub_menu_presence = False
         if sub_menu_presence:
