@@ -15,14 +15,16 @@ def test_cart():
 
     # Initialize a driver:
     #a_driver = webdriver.Ie(IEDriverManager().install())
-    a_driver = webdriver.Firefox()
-    #a_driver = webdriver.Chrome(ChromeDriverManager().install())
+    #a_driver = webdriver.Firefox()
+    a_driver = webdriver.Chrome(ChromeDriverManager().install())
     a_driver.implicitly_wait(2)
     wait = WebDriverWait(a_driver, 4)
 
     a_driver.get(an_url)
     # Wait for a header:
     wait.until(ec.title_is("My Store | Online Store"))
+
+    #time.sleep(25)     # Here, I manually add few other items to the cart.
 
     # Select Campaign Product tab:
     camp_prod_tab_css = 'a[href="#campaign-products"]'
@@ -77,7 +79,7 @@ def test_cart():
     cart.click()
 
     # Check that selected items are still present in the cart:
-    items_css = 'tr[class="item"]'
+    items_css = 'table[class="items table table-striped data-table"] tbody'
     items = a_driver.find_element_by_css_selector(items_css)
 
     # find all buttons 'Remove button':
@@ -85,9 +87,10 @@ def test_cart():
     remove_buttons = a_driver.find_elements_by_css_selector(remove_buttons_css)
     #remove_buttons[0].click()
 
-    while remove_buttons :
+    while remove_buttons:
         remove_buttons[0].click()
         wait.until(ec.staleness_of(items))
+        wait.until(ec.staleness_of(remove_buttons[0]))
         remove_buttons = a_driver.find_elements_by_css_selector(remove_buttons_css)
 
     # Close the driver:
