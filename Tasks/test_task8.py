@@ -25,10 +25,11 @@ def test_external_links():
     a_driver = webdriver.Chrome(ChromeDriverManager().install())
     #a_driver = webdriver.Firefox()
     a_driver.implicitly_wait(3)
+    wait= WebDriverWait(a_driver, 6)
 
     a_driver.get(an_url)
     # Wait for a header:
-    WebDriverWait(a_driver, 6).until(ec.title_is("My Store"))
+    wait.until(ec.title_is("My Store"))
 
     # Enter username:
     username_css_locator = 'input[name=username]'
@@ -40,17 +41,14 @@ def test_external_links():
 
     # Login:
     login_css_selector = 'button[name=login]'
-    WebDriverWait(a_driver, 6).until(ec.element_to_be_clickable((By.CSS_SELECTOR, login_css_selector)))
     a_driver.find_element_by_css_selector(login_css_selector).click()
 
     # Wait for a header:
-    WebDriverWait(a_driver, 6).until(ec.title_is("My Store"))
-    time.sleep(2)
+    wait.until(ec.title_is("My Store"))
 
     # ===============================
     # Enter Countries menu:
     countries_menu_css = 'li[id="app-"]:nth-child(3)'
-    WebDriverWait(a_driver, 6).until(ec.element_to_be_clickable((By.CSS_SELECTOR, countries_menu_css)))
     countries_menu = a_driver.find_element_by_css_selector(countries_menu_css)
     countries_menu.click()
 
@@ -76,7 +74,7 @@ def test_external_links():
 
         assert (WebDriverWait(a_driver, 18).until
             (ec.visibility_of_element_located((By.CSS_SELECTOR, 'h1')))), "Page not found"
-        #a_driver.close()
+        a_driver.close()
         a_driver.switch_to.window(first_window)
 
     # Logout:
