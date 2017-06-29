@@ -22,8 +22,8 @@ def test_external_links():
 
     # Initialize a driver:
     #a_driver = webdriver.Ie(IEDriverManager().install())
-    a_driver = webdriver.Chrome(ChromeDriverManager().install())
-    #a_driver = webdriver.Firefox()
+    #a_driver = webdriver.Chrome(ChromeDriverManager().install())
+    a_driver = webdriver.Firefox()
     a_driver.implicitly_wait(3)
     wait= WebDriverWait(a_driver, 6)
 
@@ -43,8 +43,9 @@ def test_external_links():
     login_css_selector = 'button[name=login]'
     a_driver.find_element_by_css_selector(login_css_selector).click()
 
-    # Wait for a header:
-    wait.until(ec.title_is("My Store"))
+    # Wait for a menu:
+    main_manu_css = 'ul[id="box-apps-menu"]'
+    wait.until(ec.presence_of_element_located((By.CSS_SELECTOR, main_manu_css)))
 
     # ===============================
     # Enter Countries menu:
@@ -69,18 +70,19 @@ def test_external_links():
         old_windows = a_driver.window_handles
         a_link.click()
 
+        # Check new window was opened:
         new_window = switch_to_new_window(a_driver, old_windows)
-        a_driver.switch_to.window(new_window)
+        assert new_window, print("No new windows were opened")
+        if new_window:
+            a_driver.switch_to.window(new_window)
+            a_driver.close()
+            a_driver.switch_to.window(first_window)
 
-        assert (WebDriverWait(a_driver, 18).until
-            (ec.visibility_of_element_located((By.CSS_SELECTOR, 'h1')))), "Page not found"
-        a_driver.close()
-        a_driver.switch_to.window(first_window)
 
     # Logout:
     logout_css_locator = 'i[class="fa fa-sign-out fa-lg"]'
     a_driver.find_element_by_css_selector(logout_css_locator).click()
 
     # Close the driver:
-    time.sleep(3)
+    time.sleep(1)
     a_driver.quit()
