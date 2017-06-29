@@ -17,8 +17,8 @@ def test_add_new_item():
 
     # Initialize a driver:
     #a_driver = webdriver.Ie(IEDriverManager().install())
-    a_driver = webdriver.Chrome(ChromeDriverManager().install())
-    #a_driver = webdriver.Firefox()
+    #a_driver = webdriver.Chrome(ChromeDriverManager().install())
+    a_driver = webdriver.Firefox()
     a_driver.implicitly_wait(3)
     wait = WebDriverWait(a_driver, 6)
     a_driver.get(an_url)
@@ -159,6 +159,21 @@ def test_add_new_item():
     button_save_css = 'button[name="save"]'
     button_save = a_driver.find_element_by_css_selector(button_save_css)
     button_save.click()
+
+    # Back to Catalog menu, and check newly creates items
+
+    # Read out all items on Catalog menu:
+    items_css = 'tbody tr[class]'
+    items = a_driver.find_elements_by_css_selector(items_css)
+
+    # Get their names:
+    names = [item.get_attribute('textContent').strip() for item in items]
+
+    # (To test faulty condition):
+    #a_name = 'not Mona Lisa'
+
+    # Find your product in product names:
+    assert a_name in names, print('Your item is not in the Catalog.')
 
 
     # Logout:
