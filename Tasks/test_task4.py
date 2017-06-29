@@ -56,17 +56,13 @@ def menu_walk(a_driver):
 
     # Wait for main menu:
     menu_css = 'li[id="app-"]'
-    try:
-        menu_presence = wait.until(ec.presence_of_element_located((By.CSS_SELECTOR, menu_css)))
-    except:
-        print("Main menu was not found")
-        a_driver.quit()
-
+    menu_presence = wait.until(ec.presence_of_element_located((By.CSS_SELECTOR, menu_css)))
     menu = a_driver.find_elements_by_css_selector(menu_css)
+
     for index in range(1, len(menu) + 1):
         menu_item_css = menu_css + ':nth-child(' + str(index) + ')'
         wait.until(ec.element_to_be_clickable((By.CSS_SELECTOR, menu_item_css)))
-        print(menu_item_css)
+        #print(menu_item_css)
         a_driver.find_element_by_css_selector(menu_item_css).click()
         assert (wait.until
                 (ec.visibility_of_element_located((By.CSS_SELECTOR, page_header_css)))), "Element h1 not found"
@@ -83,7 +79,7 @@ def menu_walk(a_driver):
             for jndex in range(1, len(sub_menu) + 1):
                 sub_menu_item_css = sub_menu_css + ':nth-child(' + str(jndex) + ')'
                 wait.until(ec.element_to_be_clickable((By.CSS_SELECTOR, sub_menu_item_css)))
-                print(sub_menu_item_css)
+                #print(sub_menu_item_css)
                 a_driver.find_element_by_css_selector(sub_menu_item_css).click()
                 assert (wait.until
                         (ec.visibility_of_element_located((By.CSS_SELECTOR, page_header_css)))), "Element h1 not found"
