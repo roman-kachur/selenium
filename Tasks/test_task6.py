@@ -6,6 +6,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+import os
 import time
 
 def test_add_new_item():
@@ -18,11 +19,12 @@ def test_add_new_item():
     #a_driver = webdriver.Ie(IEDriverManager().install())
     a_driver = webdriver.Chrome(ChromeDriverManager().install())
     #a_driver = webdriver.Firefox()
-    a_driver.implicitly_wait(5)
-
+    a_driver.implicitly_wait(3)
+    wait = WebDriverWait(a_driver, 6)
     a_driver.get(an_url)
+
     # Wait for a header:
-    WebDriverWait(a_driver, 3).until(ec.title_is("My Store"))
+    wait.until(ec.title_is("My Store"))
 
 
     # Enter username:
@@ -35,34 +37,30 @@ def test_add_new_item():
 
     # Login:
     login_css_selector = 'button[name=login]'
-    WebDriverWait(a_driver, 3).until(ec.element_to_be_clickable((By.CSS_SELECTOR, login_css_selector)))
     a_driver.find_element_by_css_selector(login_css_selector).click()
 
-    # Wait for a header:
-    WebDriverWait(a_driver, 3).until(ec.title_is("My Store"))
-    time.sleep(3)
+    # Wait for a menu:
+    main_manu_css = 'ul[id="box-apps-menu"]'
+    wait.until(ec.presence_of_element_located((By.CSS_SELECTOR, main_manu_css)))
 
     # ===============================
     # Enter Catalogue menu:
     catalogue_main_menu_css = 'li[id="app-"]:nth-child(2)'
-    WebDriverWait(a_driver, 3).until(ec.element_to_be_clickable((By.CSS_SELECTOR, catalogue_main_menu_css)))
     catalogue_main_menu = a_driver.find_element_by_css_selector(catalogue_main_menu_css)
     catalogue_main_menu.click()
 
     catalogue_submenu_css = 'ul[id="box-apps-menu"] li[id="doc-catalog"]'
-    WebDriverWait(a_driver, 3).until(ec.element_to_be_clickable((By.CSS_SELECTOR, catalogue_submenu_css)))
     catalogue_submenu = a_driver.find_element_by_css_selector(catalogue_submenu_css)
     catalogue_submenu.click()
 
     # Enter 'Add New Product' page:
     new_prod_btn_text = 'Add New Product'
-    WebDriverWait(a_driver, 3).until(ec.element_to_be_clickable((By.LINK_TEXT, new_prod_btn_text)))
     new_prod_btn = a_driver.find_element_by_link_text(new_prod_btn_text)
     new_prod_btn.click()
 
     # Add new item:
     # image:
-    local_image_path = 'c:\\Users\\boxter\\PycharmProjects\\selenium-hub\\Tasks\\0009.jpg'
+    local_image_path = os.path.abspath('0009.jpg')
     image_field_css = 'input[name="new_images[]"]'
     image_field = a_driver.find_element_by_css_selector(image_field_css)
     image_field.send_keys(local_image_path)
@@ -111,7 +109,6 @@ def test_add_new_item():
 
     # Manufacturer option:
     manufacturer_option_css = 'select[name="manufacturer_id"] option[value="1"]'
-    WebDriverWait(a_driver, 3).until(ec.element_to_be_clickable((By.CSS_SELECTOR, manufacturer_option_css)))
     manufacturer_option = a_driver.find_element_by_css_selector(manufacturer_option_css)
     manufacturer_option.click()
 
@@ -136,7 +133,6 @@ def test_add_new_item():
     # Select currency:
     currency_drop_down_css = 'select[name = "purchase_price_currency_code"]'
     euro_currency_css = currency_drop_down_css + ' option[value = "USD"]'
-    WebDriverWait(a_driver, 3).until(ec.element_to_be_clickable((By.CSS_SELECTOR, euro_currency_css)))
     euro_currency = a_driver.find_element_by_css_selector(euro_currency_css)
     euro_currency.click()
 
@@ -161,13 +157,11 @@ def test_add_new_item():
     # ===========================================
     # Save the item:
     button_save_css = 'button[name="save"]'
-    WebDriverWait(a_driver, 3).until(ec.element_to_be_clickable((By.CSS_SELECTOR, button_save_css)))
     button_save = a_driver.find_element_by_css_selector(button_save_css)
     button_save.click()
 
 
     # Logout:
-    time.sleep(3)
     logout_css_locator = 'i[class="fa fa-sign-out fa-lg"]'
     a_driver.find_element_by_css_selector(logout_css_locator).click()
 
