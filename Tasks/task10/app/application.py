@@ -1,9 +1,10 @@
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
-from Tasks.task10.pages.campaign_tab import CampaignTab
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
+from Tasks.task10.pages.campaign_tab import CampaignTab
+from Tasks.task10.pages.checkout_page import CheckoutPage
 import time
 
 
@@ -11,14 +12,17 @@ class Application:
 
     def __init__(self):
         self.driver = webdriver.Chrome(ChromeDriverManager().install())
+        #self.driver = webdriver.Firefox()
+        self.driver.implicitly_wait(1)
         self.base_url = "http://localhost/litecart"
         self.campaign_tab = CampaignTab(self.driver)
+        self.checkout_page = CheckoutPage(self.driver)
 
     def quit(self):
         time.sleep(3)
         self.driver.quit()
 
-    def open(self):
+    def open_campaign(self):
         self.campaign_tab.open(self.base_url)
 
     def buy_first_product(self):
@@ -36,3 +40,7 @@ class Application:
     def get_items_from_cart(self):
         # Check current items in the cart:
         return self.campaign_tab.check_items()
+
+    def purge_cart(self):
+        self.checkout_page.open()
+        self.checkout_page.remove_items()

@@ -11,7 +11,6 @@ class CampaignTab:
 
     def open(self, base_url):
         self.driver.get(base_url)
-        WebDriverWait(self.driver, 6).until(ec.title_is("My Store | Online Store"))
 
         # Select Campaign Product tab:
         self.camp_prod_tab_css = 'a[href="#campaign-products"]'
@@ -41,6 +40,7 @@ class CampaignTab:
         self.add_button_css = 'button[name="add_cart_product"]'
         self.add_button = self.driver.find_element_by_css_selector(self.add_button_css)
         self.add_button.click()
+        return self
 
     def close_item(self):
         # Close item's window:
@@ -57,3 +57,4 @@ class CampaignTab:
         # Wait until cart's items updated:
         WebDriverWait(self.driver, 2).until(
             ec.text_to_be_present_in_element((By.CSS_SELECTOR, self.cart_items_css), final_cart))
+        return self
