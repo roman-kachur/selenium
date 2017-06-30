@@ -7,11 +7,11 @@ class CampaignTab:
 
     def __init__(self, driver):
         self.driver = driver
-        self.wait = WebDriverWait(driver, 10)
+        self.wait = WebDriverWait(driver, 3)
 
     def open(self, base_url):
         self.driver.get(base_url)
-        WebDriverWait(self.driver, 20).until(ec.title_is("My Store | Online Store"))
+        WebDriverWait(self.driver, 6).until(ec.title_is("My Store | Online Store"))
 
         # Select Campaign Product tab:
         self.camp_prod_tab_css = 'a[href="#campaign-products"]'
@@ -29,7 +29,7 @@ class CampaignTab:
         # If present, try to choose item's Size=Small:
         self.size_css = 'select[class ="form-control"] option[value="Small"]'
         try:
-            self.size_presence = WebDriverWait(self.driver, 20).until(
+            self.size_presence = WebDriverWait(self.driver, 1).until(
                 ec.presence_of_element_located((By.CSS_SELECTOR, self.size_css)))
         except:
             self.size_presence = False
@@ -47,3 +47,13 @@ class CampaignTab:
         self.close_button_css = 'button[aria-label="Close"]'
         self.close_button = self.driver.find_element_by_css_selector(self.close_button_css)
         self.close_button.click()
+
+    def check_items(self):
+        self.cart_items_css = 'span[class="quantity"]'
+        self.cart_items = self.driver.find_element_by_css_selector(self.cart_items_css)
+        return int(self.cart_items.text)
+
+    def wait_for_cart(self, final_cart):
+        # Wait until cart's items updated:
+        WebDriverWait(self.driver, 2).until(
+            ec.text_to_be_present_in_element((By.CSS_SELECTOR, self.cart_items_css), final_cart))
