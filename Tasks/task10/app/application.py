@@ -19,7 +19,7 @@ class Application:
         self.checkout_page = CheckoutPage(self.driver)
 
     def quit(self):
-        time.sleep(3)
+        time.sleep(2)
         self.driver.quit()
 
     def open_campaign(self):

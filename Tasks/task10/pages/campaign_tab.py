@@ -55,6 +55,5 @@ class CampaignTab:
 
     def wait_for_cart(self, final_cart):
         # Wait until cart's items updated:
-        WebDriverWait(self.driver, 2).until(
-            ec.text_to_be_present_in_element((By.CSS_SELECTOR, self.cart_items_css), final_cart))
+        self.wait.until(ec.text_to_be_present_in_element((By.CSS_SELECTOR, self.cart_items_css), final_cart))
         return self
