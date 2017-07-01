@@ -3,7 +3,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
-from Tasks.task10.pages.campaign_tab import CampaignTab
+from Tasks.task10.pages.campaign_page import CampaignPage
 from Tasks.task10.pages.checkout_page import CheckoutPage
 import time
 
@@ -15,7 +15,7 @@ class Application:
         #self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(1)
         self.base_url = "http://localhost/litecart"
-        self.campaign_tab = CampaignTab(self.driver)
+        self.campaign_tab = CampaignPage(self.driver)
         self.checkout_page = CheckoutPage(self.driver)
 
     def quit(self):

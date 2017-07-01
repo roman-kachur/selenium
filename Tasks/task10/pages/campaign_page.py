@@ -3,11 +3,11 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
 
 
-class CampaignTab:
+class CampaignPage:
 
     def __init__(self, driver):
         self.driver = driver
-        self.wait = WebDriverWait(driver, 3)
+        self.wait = WebDriverWait(driver, 4)
 
     def open(self, base_url):
         self.driver.get(base_url)
@@ -54,6 +54,10 @@ class CampaignTab:
         return int(self.cart_items.text)
 
     def wait_for_cart(self, final_cart):
-        # Wait until cart's items updated:
-        self.wait.until(ec.text_to_be_present_in_element((By.CSS_SELECTOR, self.cart_items_css), final_cart))
-        return self
+        # Wait until cart's item is updated.
+        # Do not raise any exceptions here(it is handled in business logic by 'assert').
+        # Just attempt to wait fot the updated cart, and proceed anyway.
+        try:
+            self.wait.until(ec.text_to_be_present_in_element((By.CSS_SELECTOR, self.cart_items_css), final_cart))
+        finally:
+            return self
