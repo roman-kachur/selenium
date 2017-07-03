@@ -23,3 +23,5 @@ def test_can_add_remove_items_from_cart(app):
 
     # Purge the cart:
     app.purge_cart()
+
+    assert app.is_cart_empty(), print("There are still some items in the cart!")

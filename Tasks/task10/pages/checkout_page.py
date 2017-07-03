@@ -31,3 +31,9 @@ class CheckoutPage:
             self.wait.until(ec.staleness_of(self.items))
             self.wait.until(ec.staleness_of(self.remove_buttons[0]))
             self.remove_buttons = self.driver.find_elements_by_css_selector(self.remove_buttons_css)
+
+    def check_shopping_cart(self):
+        # Returns if Shopping Cart holds any items:
+        self.items_css = 'tr[class="item"]'
+        self.items = self.driver.find_elements_by_css_selector(self.items_css)
+        return bool(self.items)

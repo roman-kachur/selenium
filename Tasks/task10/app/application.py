@@ -19,7 +19,6 @@ class Application:
         self.checkout_page = CheckoutPage(self.driver)
 
     def quit(self):
-        time.sleep(2)
         self.driver.quit()
 
     def open_campaign(self):
@@ -44,3 +43,15 @@ class Application:
     def purge_cart(self):
         self.checkout_page.open()
         self.checkout_page.remove_items()
+
+    def is_cart_empty(self):
+        try:
+            self.checkout_page.open()
+        finally:
+            return not self.checkout_page.check_shopping_cart()
+
+    def is_cart_full(self):
+        try:
+            self.checkout_page.open()
+        finally:
+            return self.checkout_page.check_shopping_cart()
