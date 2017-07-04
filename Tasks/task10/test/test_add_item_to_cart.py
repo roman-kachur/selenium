@@ -1,6 +1,5 @@
 import pytest
 from Tasks.task10.app.application import Application
-from .data_provider import items_to_add
 import time
 
 
@@ -11,7 +10,7 @@ def test_can_add_remove_items_from_cart(app):
     app.open_campaign()
 
     # Add first item three times:
-    for i in range(items_to_add):
+    for i in range(3):
 
         items_before = app.get_items_from_cart()
 
